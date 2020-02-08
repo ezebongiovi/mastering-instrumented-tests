@@ -35,9 +35,9 @@ class SimpleFieldValidator : FieldValidator {
      */
     private fun isValidEmail(email: String): Int {
         return if (REGEX_EMAIL_FORMAT.toRegex().matches(email))
-            MainModel.Result.SUCCESS
+            MainModel.SUCCESS
         else
-            MainModel.Result.ERROR_EMAIL_FORMAT
+            MainModel.ERROR_EMAIL_FORMAT
     }
 
     /**
@@ -49,13 +49,13 @@ class SimpleFieldValidator : FieldValidator {
 
         return when {
             // Doesn't match min length
-            password.length < LENGTH_MIN_PASSWORD -> MainModel.Result.ERROR_PASSWORD_LENGTH
+            password.length < LENGTH_MIN_PASSWORD -> MainModel.ERROR_PASSWORD_LENGTH
 
             // Matches regex
-            REGEX_PASSWORD_FORMAT.toRegex().matches(password) -> MainModel.Result.SUCCESS
+            REGEX_PASSWORD_FORMAT.toRegex().matches(password) -> MainModel.SUCCESS
 
             // Doesn't match regex
-            else -> MainModel.Result.ERROR_PASSWORD_FORMAT
+            else -> MainModel.ERROR_PASSWORD_FORMAT
         }
     }
 

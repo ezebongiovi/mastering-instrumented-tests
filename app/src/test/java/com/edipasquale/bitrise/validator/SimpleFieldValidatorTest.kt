@@ -14,7 +14,7 @@ class SimpleFieldValidatorTest {
     @Test
     fun testValidEmail() {
         assertEquals(
-            MainModel.Result.SUCCESS, validator.validateField(
+            MainModel.SUCCESS, validator.validateField(
                 "test@test.test",
                 FieldValidator.FieldType.FIELD_EMAIL
             )
@@ -24,7 +24,7 @@ class SimpleFieldValidatorTest {
     @Test
     fun testEmailWithoutAtSymbol() {
         assertEquals(
-            MainModel.Result.ERROR_EMAIL_FORMAT, validator.validateField(
+            MainModel.ERROR_EMAIL_FORMAT, validator.validateField(
                 "test.test",
                 FieldValidator.FieldType.FIELD_EMAIL
             )
@@ -34,7 +34,7 @@ class SimpleFieldValidatorTest {
     @Test
     fun testEmailWithoutDotSegment() {
         assertEquals(
-            MainModel.Result.ERROR_EMAIL_FORMAT, validator.validateField(
+            MainModel.ERROR_EMAIL_FORMAT, validator.validateField(
                 "test@test",
                 FieldValidator.FieldType.FIELD_EMAIL
             )
@@ -44,7 +44,7 @@ class SimpleFieldValidatorTest {
     @Test
     fun testEmailWithInvalidDomain() {
         assertEquals(
-            MainModel.Result.ERROR_EMAIL_FORMAT, validator.validateField(
+            MainModel.ERROR_EMAIL_FORMAT, validator.validateField(
                 "test@test.t",
                 FieldValidator.FieldType.FIELD_EMAIL
             )
@@ -54,7 +54,7 @@ class SimpleFieldValidatorTest {
     @Test
     fun testValidPassword() {
         assertEquals(
-            MainModel.Result.SUCCESS, validator.validateField(
+            MainModel.SUCCESS, validator.validateField(
                 "Admin_1234",
                 FieldValidator.FieldType.FIELD_PASSWORD
             )
@@ -64,7 +64,7 @@ class SimpleFieldValidatorTest {
     @Test
     fun testWithoutSpecialCharacter() {
         assertEquals(
-            MainModel.Result.ERROR_PASSWORD_FORMAT, validator.validateField(
+            MainModel.ERROR_PASSWORD_FORMAT, validator.validateField(
                 "Password123",
                 FieldValidator.FieldType.FIELD_PASSWORD
             )
@@ -79,7 +79,7 @@ class SimpleFieldValidatorTest {
     @Test
     fun testWithoutUpperChars() {
         assertEquals(
-            MainModel.Result.ERROR_PASSWORD_FORMAT, validator.validateField(
+            MainModel.ERROR_PASSWORD_FORMAT, validator.validateField(
                 "password_123",
                 FieldValidator.FieldType.FIELD_PASSWORD
             )
@@ -89,7 +89,7 @@ class SimpleFieldValidatorTest {
     @Test
     fun testWithoutNumbers() {
         assertEquals(
-            MainModel.Result.ERROR_PASSWORD_FORMAT, validator.validateField(
+            MainModel.ERROR_PASSWORD_FORMAT, validator.validateField(
                 "Password#",
                 FieldValidator.FieldType.FIELD_PASSWORD
             )
@@ -99,7 +99,7 @@ class SimpleFieldValidatorTest {
     @Test
     fun testInvalidLengthPassword() {
         assertEquals(
-            MainModel.Result.ERROR_PASSWORD_LENGTH, validator.validateField(
+            MainModel.ERROR_PASSWORD_LENGTH, validator.validateField(
                 "abc",
                 FieldValidator.FieldType.FIELD_PASSWORD
             )

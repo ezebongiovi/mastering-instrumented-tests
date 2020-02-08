@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.edipasquale.bitrise.dto.AuthDTO
 import com.edipasquale.bitrise.model.MainModel
-import com.edipasquale.bitrise.source.AuthSource
+import com.edipasquale.bitrise.repository.AuthRepository
 import com.edipasquale.bitrise.validator.FieldValidator
 
-class MainViewModel(private val validator: FieldValidator, private val source: AuthSource) :
+class MainViewModel(private val validator: FieldValidator, private val repository: AuthRepository) :
     ViewModel() {
 
     private var _authResult: LiveData<MainModel>? = null
@@ -24,21 +24,21 @@ class MainViewModel(private val validator: FieldValidator, private val source: A
             val passwordResult = validator
                 .validateField(password, FieldValidator.FieldType.FIELD_PASSWORD)
 
-            if (emailResult == MainModel.Result.SUCCESS && passwordResult == MainModel.Result.SUCCESS)
-                addSource(source.register(AuthDTO(email, password)))
+            if (emailResult == MainModel.SUCCESS && passwordResult == MainModel.SUCCESS)
+                addSource(repository.register(AuthDTO(email, password)))
             else {
                 val liveData = MutableLiveData<MainModel>()
 
-                if (emailResult != MainModel.Result.SUCCESS)
+                if (emailResult != MainModel.SUCCESS)
                     liveData.postValue(MainModel(error = emailResult))
-                else if (passwordResult != MainModel.Result.SUCCESS)
+                else if (passwordResult != MainModel.SUCCESS)
                     liveData.postValue(MainModel(error = passwordResult))
 
                 addSource(liveData)
             }
         } else {
             val liveData = MutableLiveData<MainModel>()
-            liveData.postValue(MainModel(error = MainModel.Result.ERROR_PASSWORD_MATCH))
+            liveData.postValue(MainModel(error = MainModel.ERROR_PASSWORD_MATCH))
 
             addSource(liveData)
         }

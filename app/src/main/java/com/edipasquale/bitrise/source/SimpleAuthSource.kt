@@ -3,15 +3,15 @@ package com.edipasquale.bitrise.source
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.edipasquale.bitrise.dto.AuthDTO
+import com.edipasquale.bitrise.dto.Either
 import com.edipasquale.bitrise.dto.User
-import com.edipasquale.bitrise.model.MainModel
 
 class SimpleAuthSource : AuthSource {
 
-    override fun register(dto: AuthDTO): LiveData<MainModel> {
-        val liveData = MutableLiveData<MainModel>()
+    override fun register(dto: AuthDTO): LiveData<Either<User, Int>> {
+        val liveData = MutableLiveData<Either<User, Int>>()
 
-        liveData.postValue(MainModel(data = User(dto.email)))
+        liveData.postValue(Either.Data(User(dto.email, dto.password)))
 
         return liveData
     }
