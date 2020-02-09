@@ -2,7 +2,7 @@ package com.edipasquale.bitrise.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.edipasquale.bitrise.dto.AuthDTO
-import com.edipasquale.bitrise.dto.Either
+import com.edipasquale.bitrise.dto.core.Either
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test

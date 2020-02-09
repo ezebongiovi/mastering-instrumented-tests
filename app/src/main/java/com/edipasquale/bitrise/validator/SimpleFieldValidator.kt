@@ -1,6 +1,9 @@
 package com.edipasquale.bitrise.validator
 
-import com.edipasquale.bitrise.model.MainModel
+import com.edipasquale.bitrise.model.ERROR_EMAIL_FORMAT
+import com.edipasquale.bitrise.model.ERROR_PASSWORD_FORMAT
+import com.edipasquale.bitrise.model.ERROR_PASSWORD_LENGTH
+import com.edipasquale.bitrise.model.SUCCESS
 
 /**
  * In this regex, we have added some restrictions on username part of email address.
@@ -12,7 +15,8 @@ import com.edipasquale.bitrise.model.MainModel
  * 4) Additionally email may contain only dot(.), dash(-) and underscore(_)
  * 5) Rest all characters are not allowed
  */
-private const val REGEX_EMAIL_FORMAT = "^[\\w!#\$%&’*+=?`{|}~^-]+(?:\\.[\\w!#\$%&’*+=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}\$"
+private const val REGEX_EMAIL_FORMAT =
+    "^[\\w!#\$%&’*+=?`{|}~^-]+(?:\\.[\\w!#\$%&’*+=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}\$"
 
 /**
  * Regex for password validation. The password requires:
@@ -35,9 +39,9 @@ class SimpleFieldValidator : FieldValidator {
      */
     private fun isValidEmail(email: String): Int {
         return if (REGEX_EMAIL_FORMAT.toRegex().matches(email))
-            MainModel.SUCCESS
+            SUCCESS
         else
-            MainModel.ERROR_EMAIL_FORMAT
+            ERROR_EMAIL_FORMAT
     }
 
     /**
@@ -49,20 +53,20 @@ class SimpleFieldValidator : FieldValidator {
 
         return when {
             // Doesn't match min length
-            password.length < LENGTH_MIN_PASSWORD -> MainModel.ERROR_PASSWORD_LENGTH
+            password.length < LENGTH_MIN_PASSWORD -> ERROR_PASSWORD_LENGTH
 
             // Matches regex
-            REGEX_PASSWORD_FORMAT.toRegex().matches(password) -> MainModel.SUCCESS
+            REGEX_PASSWORD_FORMAT.toRegex().matches(password) -> SUCCESS
 
             // Doesn't match regex
-            else -> MainModel.ERROR_PASSWORD_FORMAT
+            else -> ERROR_PASSWORD_FORMAT
         }
     }
 
     override fun validateField(input: String, fieldType: Int): Int {
         return when (fieldType) {
-            FieldValidator.FieldType.FIELD_EMAIL -> isValidEmail(input)
-            FieldValidator.FieldType.FIELD_PASSWORD -> isValidPassword(input)
+            FIELD_EMAIL -> isValidEmail(input)
+            FIELD_PASSWORD -> isValidPassword(input)
             else -> throw AssertionError("Invalid field type")
         }
     }

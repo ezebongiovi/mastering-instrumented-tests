@@ -3,8 +3,9 @@ package com.edipasquale.bitrise.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.edipasquale.bitrise.dto.AuthDTO
-import com.edipasquale.bitrise.dto.Either
+import com.edipasquale.bitrise.dto.core.Either
 import com.edipasquale.bitrise.dto.User
+import com.edipasquale.bitrise.model.ERROR_EMAIL_FORMAT
 import com.edipasquale.bitrise.model.MainModel
 import com.edipasquale.bitrise.source.AuthSource
 import io.mockk.every
@@ -51,7 +52,7 @@ class SimpleAuthRepositoryTest {
         val authDto = AuthDTO("email", "pass")
 
         // Mocks success response
-        sourceResponse.postValue(Either.Error(MainModel.ERROR_EMAIL_FORMAT))
+        sourceResponse.postValue(Either.Error(ERROR_EMAIL_FORMAT))
 
         every {
             source.register(any())
@@ -60,7 +61,7 @@ class SimpleAuthRepositoryTest {
         repository.register(authDto).observeForever { response ->
             assertFalse(response.isSuccess())
 
-            assertEquals(MainModel.ERROR_EMAIL_FORMAT, response.error)
+            assertEquals(ERROR_EMAIL_FORMAT, response.error)
         }
     }
 }

@@ -5,8 +5,12 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.edipasquale.bitrise.dto.AuthDTO
+import com.edipasquale.bitrise.model.ERROR_PASSWORD_MATCH
 import com.edipasquale.bitrise.model.MainModel
+import com.edipasquale.bitrise.model.SUCCESS
 import com.edipasquale.bitrise.repository.AuthRepository
+import com.edipasquale.bitrise.validator.FIELD_EMAIL
+import com.edipasquale.bitrise.validator.FIELD_PASSWORD
 import com.edipasquale.bitrise.validator.FieldValidator
 
 class MainViewModel(private val validator: FieldValidator, private val repository: AuthRepository) :
@@ -19,26 +23,26 @@ class MainViewModel(private val validator: FieldValidator, private val repositor
         if (password == passwordConfirmation) {
 
             val emailResult = validator
-                .validateField(email, FieldValidator.FieldType.FIELD_EMAIL)
+                .validateField(email, FIELD_EMAIL)
 
             val passwordResult = validator
-                .validateField(password, FieldValidator.FieldType.FIELD_PASSWORD)
+                .validateField(password, FIELD_PASSWORD)
 
-            if (emailResult == MainModel.SUCCESS && passwordResult == MainModel.SUCCESS)
+            if (emailResult == SUCCESS && passwordResult == SUCCESS)
                 addSource(repository.register(AuthDTO(email, password)))
             else {
                 val liveData = MutableLiveData<MainModel>()
 
-                if (emailResult != MainModel.SUCCESS)
+                if (emailResult != SUCCESS)
                     liveData.postValue(MainModel(error = emailResult))
-                else if (passwordResult != MainModel.SUCCESS)
+                else if (passwordResult != SUCCESS)
                     liveData.postValue(MainModel(error = passwordResult))
 
                 addSource(liveData)
             }
         } else {
             val liveData = MutableLiveData<MainModel>()
-            liveData.postValue(MainModel(error = MainModel.ERROR_PASSWORD_MATCH))
+            liveData.postValue(MainModel(error = ERROR_PASSWORD_MATCH))
 
             addSource(liveData)
         }

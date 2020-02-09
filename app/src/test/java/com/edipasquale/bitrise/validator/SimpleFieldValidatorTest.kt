@@ -1,6 +1,9 @@
 package com.edipasquale.bitrise.validator
 
-import com.edipasquale.bitrise.model.MainModel
+import com.edipasquale.bitrise.model.ERROR_EMAIL_FORMAT
+import com.edipasquale.bitrise.model.ERROR_PASSWORD_FORMAT
+import com.edipasquale.bitrise.model.ERROR_PASSWORD_LENGTH
+import com.edipasquale.bitrise.model.SUCCESS
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,9 +17,9 @@ class SimpleFieldValidatorTest {
     @Test
     fun testValidEmail() {
         assertEquals(
-            MainModel.SUCCESS, validator.validateField(
+            SUCCESS, validator.validateField(
                 "test@test.test",
-                FieldValidator.FieldType.FIELD_EMAIL
+                FIELD_EMAIL
             )
         )
     }
@@ -24,9 +27,9 @@ class SimpleFieldValidatorTest {
     @Test
     fun testEmailWithoutAtSymbol() {
         assertEquals(
-            MainModel.ERROR_EMAIL_FORMAT, validator.validateField(
+            ERROR_EMAIL_FORMAT, validator.validateField(
                 "test.test",
-                FieldValidator.FieldType.FIELD_EMAIL
+                FIELD_EMAIL
             )
         )
     }
@@ -34,9 +37,9 @@ class SimpleFieldValidatorTest {
     @Test
     fun testEmailWithoutDotSegment() {
         assertEquals(
-            MainModel.ERROR_EMAIL_FORMAT, validator.validateField(
+            ERROR_EMAIL_FORMAT, validator.validateField(
                 "test@test",
-                FieldValidator.FieldType.FIELD_EMAIL
+                FIELD_EMAIL
             )
         )
     }
@@ -44,9 +47,9 @@ class SimpleFieldValidatorTest {
     @Test
     fun testEmailWithInvalidDomain() {
         assertEquals(
-            MainModel.ERROR_EMAIL_FORMAT, validator.validateField(
+            ERROR_EMAIL_FORMAT, validator.validateField(
                 "test@test.t",
-                FieldValidator.FieldType.FIELD_EMAIL
+                FIELD_EMAIL
             )
         )
     }
@@ -54,9 +57,9 @@ class SimpleFieldValidatorTest {
     @Test
     fun testValidPassword() {
         assertEquals(
-            MainModel.SUCCESS, validator.validateField(
+            SUCCESS, validator.validateField(
                 "Admin_1234",
-                FieldValidator.FieldType.FIELD_PASSWORD
+                FIELD_PASSWORD
             )
         )
     }
@@ -64,9 +67,9 @@ class SimpleFieldValidatorTest {
     @Test
     fun testWithoutSpecialCharacter() {
         assertEquals(
-            MainModel.ERROR_PASSWORD_FORMAT, validator.validateField(
+            ERROR_PASSWORD_FORMAT, validator.validateField(
                 "Password123",
-                FieldValidator.FieldType.FIELD_PASSWORD
+                FIELD_PASSWORD
             )
         )
     }
@@ -79,9 +82,9 @@ class SimpleFieldValidatorTest {
     @Test
     fun testWithoutUpperChars() {
         assertEquals(
-            MainModel.ERROR_PASSWORD_FORMAT, validator.validateField(
+            ERROR_PASSWORD_FORMAT, validator.validateField(
                 "password_123",
-                FieldValidator.FieldType.FIELD_PASSWORD
+                FIELD_PASSWORD
             )
         )
     }
@@ -89,9 +92,9 @@ class SimpleFieldValidatorTest {
     @Test
     fun testWithoutNumbers() {
         assertEquals(
-            MainModel.ERROR_PASSWORD_FORMAT, validator.validateField(
+            ERROR_PASSWORD_FORMAT, validator.validateField(
                 "Password#",
-                FieldValidator.FieldType.FIELD_PASSWORD
+                FIELD_PASSWORD
             )
         )
     }
@@ -99,9 +102,9 @@ class SimpleFieldValidatorTest {
     @Test
     fun testInvalidLengthPassword() {
         assertEquals(
-            MainModel.ERROR_PASSWORD_LENGTH, validator.validateField(
+            ERROR_PASSWORD_LENGTH, validator.validateField(
                 "abc",
-                FieldValidator.FieldType.FIELD_PASSWORD
+                FIELD_PASSWORD
             )
         )
     }

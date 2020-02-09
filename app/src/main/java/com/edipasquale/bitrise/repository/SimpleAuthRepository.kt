@@ -3,7 +3,7 @@ package com.edipasquale.bitrise.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.edipasquale.bitrise.dto.AuthDTO
-import com.edipasquale.bitrise.dto.Either
+import com.edipasquale.bitrise.dto.core.Either
 import com.edipasquale.bitrise.model.MainModel
 import com.edipasquale.bitrise.source.AuthSource
 

@@ -13,8 +13,11 @@ parsers:
       loop: yes
       method: no
       macro: no
-
+ignore:
+  - "app/src/main/java/com/edipasquale/bitrise/App.kt"
+  - "app/src/main/java/com/edipasquale/bitrise/dto/core/Either.kt"
+  - "app/src/main/java/com/edipasquale/bitrise/koin/AppInjector.kt"
 comment:
-  layout: "reach,diff,flags,tree"
+  layout: "reach,diff,flags,files"
   behavior: default
   require_changes: no
