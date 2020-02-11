@@ -28,7 +28,7 @@ private const val REGEX_EMAIL_FORMAT =
  */
 private const val REGEX_PASSWORD_FORMAT = "((?=.*[a-z])(?=.*\\d)(?=.*[@#\$._%])(?=.*[A-Z]).+)"
 
-private const val LENGTH_MIN_PASSWORD = 6
+const val LENGTH_MIN_PASSWORD = 6
 
 class SimpleFieldValidator : FieldValidator {
 
