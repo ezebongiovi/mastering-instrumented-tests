@@ -42,7 +42,9 @@ class MainPageFlow {
             .inputPassword("ValidPassword.123")
             .inputPasswordConfirmation("ValidPassword.123")
             .register()
-            .validateTheresNoError()
+            .validatePasswordConfirmationDisplaysError(false)
+            .validatePasswordDisplaysError(false)
+            .validateEmailDisplaysError(false)
     }
 
     @Test
@@ -52,6 +54,43 @@ class MainPageFlow {
             .moveToState(Lifecycle.State.RESUMED)
             .inputEmail("someemail")
             .register()
-            .validateEmailDisplaysError()
+            .validateEmailDisplaysError(true)
+    }
+
+    @Test
+    fun testInvalidPassword() {
+        MainPage()
+            .launch()
+            .moveToState(Lifecycle.State.RESUMED)
+            .inputEmail("valid@email.domain")
+            .inputPassword("invalidpassword")
+            .inputPasswordConfirmation("invalidpassword")
+            .register()
+            .validateEmailDisplaysError(false)
+            .validatePasswordDisplaysError(true)
+            .validatePasswordConfirmationDisplaysError(false)
+    }
+
+    @Test
+    fun testPasswordsDontMatch() {
+        MainPage()
+            .launch()
+            .moveToState(Lifecycle.State.RESUMED)
+            .inputEmail("valid@email.domain")
+            .inputPassword("ValidPassword.1234")
+            .inputPasswordConfirmation("something")
+            .register()
+            .validateEmailDisplaysError(false)
+            .validatePasswordDisplaysError(false)
+            .validatePasswordConfirmationDisplaysError(true)
+    }
+
+    @Test
+    fun testEmptyEmail() {
+        MainPage()
+            .launch()
+            .moveToState(Lifecycle.State.RESUMED)
+            .register()
+            .validateEmailDisplaysError(true)
     }
 }

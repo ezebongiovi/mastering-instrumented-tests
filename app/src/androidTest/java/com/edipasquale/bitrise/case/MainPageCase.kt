@@ -56,7 +56,7 @@ class MainPageCase {
         MainPage()
             .launch()
             .moveToState(Lifecycle.State.RESUMED)
-            .validateEmailDisplaysError()
+            .validateEmailDisplaysError(true)
     }
 
     @Test
@@ -66,7 +66,7 @@ class MainPageCase {
         MainPage()
             .launch()
             .moveToState(Lifecycle.State.RESUMED)
-            .validatePasswordDisplaysError()
+            .validatePasswordDisplaysError(true)
     }
 
     @Test
@@ -76,7 +76,7 @@ class MainPageCase {
         MainPage()
             .launch()
             .moveToState(Lifecycle.State.RESUMED)
-            .validatePasswordConfirmationDisplaysError()
+            .validatePasswordConfirmationDisplaysError(true)
     }
 
     @Test
@@ -86,7 +86,7 @@ class MainPageCase {
         MainPage()
             .launch()
             .moveToState(Lifecycle.State.RESUMED)
-            .validatePasswordDisplaysError()
+            .validatePasswordDisplaysError(true)
     }
 
     @Test
@@ -108,7 +108,9 @@ class MainPageCase {
         MainPage()
             .launch()
             .moveToState(Lifecycle.State.RESUMED)
-            .validateTheresNoError()
+            .validateEmailDisplaysError(false)
+            .validatePasswordConfirmationDisplaysError(false)
+            .validatePasswordDisplaysError(false)
     }
 
     private fun mockViewModelResponseToError(errorCode: Int) {

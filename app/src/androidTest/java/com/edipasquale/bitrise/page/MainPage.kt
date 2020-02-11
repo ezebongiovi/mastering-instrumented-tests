@@ -55,28 +55,30 @@ class MainPage {
             return this
         }
 
-        fun validateEmailDisplaysError(): MainPageAction {
-            onView(withId(R.id.fieldEmail)).check(matches(hasErrorText()))
+        fun validateEmailDisplaysError(displays: Boolean): MainPageAction {
+            if (displays)
+                onView(withId(R.id.fieldEmail)).check(matches(hasErrorText()))
+            else
+                onView(withId(R.id.fieldEmail)).check(matches(hasNoErrorText()))
 
             return this
         }
 
-        fun validateTheresNoError(): MainPageAction {
-            onView(withId(R.id.fieldEmail)).check(matches(hasNoErrorText()))
-            onView(withId(R.id.fieldPassword)).check(matches(hasNoErrorText()))
-            onView(withId(R.id.fieldPasswordConfirmation)).check(matches(hasNoErrorText()))
+        fun validatePasswordDisplaysError(displays: Boolean): MainPageAction {
+            if (displays)
+                onView(withId(R.id.fieldPassword)).check(matches(hasErrorText()))
+            else
+                onView(withId(R.id.fieldPassword)).check(matches(hasNoErrorText()))
+
 
             return this
         }
 
-        fun validatePasswordDisplaysError(): MainPageAction {
-            onView(withId(R.id.fieldPassword)).check(matches(hasErrorText()))
-
-            return this
-        }
-
-        fun validatePasswordConfirmationDisplaysError(): MainPageAction {
-            onView(withId(R.id.fieldPasswordConfirmation)).check(matches(hasErrorText()))
+        fun validatePasswordConfirmationDisplaysError(displays: Boolean): MainPageAction {
+            if (displays)
+                onView(withId(R.id.fieldPasswordConfirmation)).check(matches(hasErrorText()))
+            else
+                onView(withId(R.id.fieldPasswordConfirmation)).check(matches(hasNoErrorText()))
 
             return this
         }
