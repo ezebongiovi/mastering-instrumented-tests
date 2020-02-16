@@ -28,18 +28,21 @@ class MainViewModel(private val validator: FieldValidator, private val repositor
             val passwordResult = validator
                 .validateField(password, FIELD_PASSWORD)
 
-            if (emailResult == SUCCESS && passwordResult == SUCCESS)
+            
+            val liveData = MutableLiveData<MainModel>()
+
+            if (emailResult != SUCCESS)
+                // Email error
+                liveData.postValue(MainModel(error = emailResult))
+            else if (passwordResult != SUCCESS)
+                // Password error
+                liveData.postValue(MainModel(error = passwordResult))
+            else
+                // No errors
                 addSource(repository.register(AuthDTO(email, password)))
-            else {
-                val liveData = MutableLiveData<MainModel>()
 
-                if (emailResult != SUCCESS)
-                    liveData.postValue(MainModel(error = emailResult))
-                else if (passwordResult != SUCCESS)
-                    liveData.postValue(MainModel(error = passwordResult))
+            addSource(liveData)
 
-                addSource(liveData)
-            }
         } else {
             val liveData = MutableLiveData<MainModel>()
             liveData.postValue(MainModel(error = ERROR_PASSWORD_MATCH))
