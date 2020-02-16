@@ -94,7 +94,7 @@ class MainPageCase {
         every { mockViewModel.authResult }.answers {
             val authResult = MediatorLiveData<MainModel>()
 
-            // Mock response to email format error
+            // Mock response to success response
             authResult.postValue(MainModel(data = User("", "")))
 
 
