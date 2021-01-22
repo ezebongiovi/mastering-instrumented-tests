@@ -5,29 +5,32 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.edipasquale.bitrise.R
+import com.edipasquale.bitrise.databinding.ActivityMainBinding
 import com.edipasquale.bitrise.model.*
 import com.edipasquale.bitrise.validator.LENGTH_MIN_PASSWORD
 import com.edipasquale.bitrise.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private val mViewModel: MainViewModel by viewModel()
+    private lateinit var _binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        
+        setContentView(_binding.root)
 
         mViewModel.authResult.observe(this, Observer { model ->
             render(model)
         })
 
-        buttonRegister.setOnClickListener {
+        _binding.buttonRegister.setOnClickListener {
             mViewModel.register(
-                fieldEmail.text.toString(),
-                fieldPassword.text.toString(),
-                fieldPasswordConfirmation.text.toString()
+                _binding.fieldEmail.text.toString(),
+                _binding.fieldPassword.text.toString(),
+                _binding.fieldPasswordConfirmation.text.toString()
             )
         }
     }
@@ -35,21 +38,21 @@ class MainActivity : AppCompatActivity() {
     private fun render(model: MainModel) {
 
         when (model.error) {
-            ERROR_EMAIL_FORMAT -> fieldEmail.error = getString(R.string.feedback_error_email_format)
+            ERROR_EMAIL_FORMAT -> _binding.fieldEmail.error = getString(R.string.feedback_error_email_format)
 
-            ERROR_PASSWORD_FORMAT -> fieldPassword.error =
+            ERROR_PASSWORD_FORMAT -> _binding.fieldPassword.error =
                 getString(R.string.feedback_error_password_format)
 
-            ERROR_PASSWORD_LENGTH -> fieldPassword.error =
+            ERROR_PASSWORD_LENGTH -> _binding.fieldPassword.error =
                 getString(R.string.feedback_error_password_length, LENGTH_MIN_PASSWORD)
 
-            ERROR_PASSWORD_MATCH -> fieldPasswordConfirmation.error =
+            ERROR_PASSWORD_MATCH -> _binding.fieldPasswordConfirmation.error =
                 getString(R.string.feedback_error_password_match)
 
             else -> {
-                fieldEmail.error = null
-                fieldPassword.error = null
-                fieldPasswordConfirmation.error = null
+                _binding.fieldEmail.error = null
+                _binding.fieldPassword.error = null
+                _binding.fieldPasswordConfirmation.error = null
 
                 Toast.makeText(
                     this,
