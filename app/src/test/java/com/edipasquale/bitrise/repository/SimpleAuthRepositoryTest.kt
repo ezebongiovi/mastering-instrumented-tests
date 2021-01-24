@@ -2,11 +2,11 @@ package com.edipasquale.bitrise.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import com.edipasquale.bitrise.dto.AuthDTO
+import com.edipasquale.bitrise.dto.EmailPasswordAuth
 import com.edipasquale.bitrise.dto.core.Either
 import com.edipasquale.bitrise.dto.User
 import com.edipasquale.bitrise.model.ERROR_EMAIL_FORMAT
-import com.edipasquale.bitrise.source.AuthSource
+import com.edipasquale.bitrise.source.auth.AuthSource
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Assert.*
@@ -26,10 +26,10 @@ class SimpleAuthRepositoryTest {
         val source = mockk<AuthSource>()
         val sourceResponse = MutableLiveData<Either<User, Int>>()
         val repository = SimpleAuthRepository(source)
-        val authDto = AuthDTO("email", "pass")
+        val authDto = EmailPasswordAuth("email", "pass")
 
         // Mocks success response
-        sourceResponse.postValue(Either.Data(User(authDto.email, authDto.password)))
+        sourceResponse.postValue(Either.Data(User(authDto.email)))
 
         every {
             source.register(any())
@@ -39,7 +39,6 @@ class SimpleAuthRepositoryTest {
             assertTrue(response.isSuccess())
 
             assertEquals(authDto.email, response.data!!.email)
-            assertEquals(authDto.password, response.data!!.password)
         }
     }
 
@@ -48,7 +47,7 @@ class SimpleAuthRepositoryTest {
         val source = mockk<AuthSource>()
         val sourceResponse = MutableLiveData<Either<User, Int>>()
         val repository = SimpleAuthRepository(source)
-        val authDto = AuthDTO("email", "pass")
+        val authDto = EmailPasswordAuth("email", "pass")
 
         // Mocks success response
         sourceResponse.postValue(Either.Error(ERROR_EMAIL_FORMAT))

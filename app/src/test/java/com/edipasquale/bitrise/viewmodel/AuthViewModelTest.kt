@@ -17,7 +17,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
-class MainViewModelTest {
+class AuthViewModelTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -26,7 +26,7 @@ class MainViewModelTest {
     fun testPasswordsDontMatch() {
         val validator = mockk<FieldValidator>()
         val repository = mockk<AuthRepository>()
-        val viewModel = MainViewModel(validator, repository)
+        val viewModel = AuthViewModel(validator, repository)
 
         val email = "email@email.com"
         val password = "password"
@@ -45,14 +45,14 @@ class MainViewModelTest {
     fun testPasswordsMatchWithAllValidationsSuccedded() {
         val validator = mockk<FieldValidator>()
         val repository = mockk<AuthRepository>()
-        val viewModel = MainViewModel(validator, repository)
+        val viewModel = AuthViewModel(validator, repository)
         val liveData = MutableLiveData<MainModel>()
 
         val email = "email@email.com"
         val password = "password"
         val passwordConfirmation = "password"
 
-        liveData.postValue(MainModel(data = User(email, password)))
+        liveData.postValue(MainModel(data = User(email)))
 
         every { repository.register(any()) }.returns(liveData)
 
@@ -71,7 +71,7 @@ class MainViewModelTest {
     fun testPasswordsMatchWithPasswordError() {
         val validator = mockk<FieldValidator>()
         val repository = mockk<AuthRepository>()
-        val viewModel = MainViewModel(validator, repository)
+        val viewModel = AuthViewModel(validator, repository)
 
         // Mock email validation to success
         every {
@@ -96,7 +96,7 @@ class MainViewModelTest {
     fun testPasswordsMatchWithEmailError() {
         val validator = mockk<FieldValidator>()
         val repository = mockk<AuthRepository>()
-        val viewModel = MainViewModel(validator, repository)
+        val viewModel = AuthViewModel(validator, repository)
 
         every {
             validator.validateField(any(), FIELD_EMAIL)
@@ -119,7 +119,7 @@ class MainViewModelTest {
     fun testPasswordsMatchWithEmailAndPasswordError() {
         val validator = mockk<FieldValidator>()
         val repository = mockk<AuthRepository>()
-        val viewModel = MainViewModel(validator, repository)
+        val viewModel = AuthViewModel(validator, repository)
 
         // Mocks password validation to error
         every {

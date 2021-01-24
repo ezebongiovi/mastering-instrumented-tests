@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "502063588694",
+    "firebase_url": "https://tdd-room.firebaseio.com",
+    "project_id": "tdd-room",
+    "storage_bucket": "tdd-room.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502063588694:android:55e7c7323689a6775722f7",
+        "android_client_info": {
+          "package_name": "com.edipasquale.bitrise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502063588694-p2iitgikq5s461tqir9ql6lcmlh08tln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoMDspg3TWIjex2Hhv2NJzDwC7pWBHwKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502063588694-p2iitgikq5s461tqir9ql6lcmlh08tln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
