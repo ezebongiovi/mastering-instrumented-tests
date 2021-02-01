@@ -34,7 +34,6 @@ class RegisterPageFlow {
 
     @Before
     fun setUp() {
-        clearAllMocks()
         koinApp = ApplicationProvider.getApplicationContext()
 
         koinApp.setUpModule(module {
