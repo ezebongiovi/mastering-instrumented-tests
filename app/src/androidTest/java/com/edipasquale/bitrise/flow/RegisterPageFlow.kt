@@ -51,6 +51,7 @@ class RegisterPageFlow {
 
     @After
     fun shutDown() {
+        clearAllMocks()
         koinApp.closeKoin()
     }
 

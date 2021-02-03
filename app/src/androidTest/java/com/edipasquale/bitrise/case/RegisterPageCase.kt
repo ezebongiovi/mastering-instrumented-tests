@@ -15,6 +15,7 @@ import com.edipasquale.bitrise.source.session.SessionManager
 import com.edipasquale.bitrise.validator.FieldValidator
 import com.edipasquale.bitrise.validator.SimpleFieldValidator
 import com.edipasquale.bitrise.viewmodel.AuthViewModel
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.After
@@ -50,6 +51,7 @@ class RegisterPageCase {
 
     @After
     fun shutDown() {
+        clearAllMocks()
         koinApp.closeKoin()
     }
 

@@ -1,6 +1,7 @@
 package com.edipasquale.bitrise
 
 import android.app.Application
+import io.mockk.clearAllMocks
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinApplication
@@ -14,6 +15,8 @@ class KoinTestApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        clearAllMocks()
 
         koin = startKoin {
             androidContext(this@KoinTestApp)

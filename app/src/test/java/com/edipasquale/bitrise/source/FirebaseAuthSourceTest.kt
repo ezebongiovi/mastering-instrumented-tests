@@ -53,4 +53,19 @@ class FirebaseAuthSourceTest {
             mockFirebaseAuth.createUserWithEmailAndPassword(authDTO.email, authDTO.password)
         }
     }
+
+    @Test
+    fun errorIsPropagatedIfResultIsInvalid() {
+        val source = FirebaseAuthSource()
+        val authDTO = EmailPasswordAuth(
+            "email",
+            "pass"
+        )
+
+        source.register(authDTO)
+
+        verify(exactly = 1) {
+            mockFirebaseAuth.createUserWithEmailAndPassword(authDTO.email, authDTO.password)
+        }
+    }
 }
