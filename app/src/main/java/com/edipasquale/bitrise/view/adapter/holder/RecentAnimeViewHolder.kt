@@ -13,5 +13,8 @@ class RecentAnimeViewHolder(
         Glide.with(_binding.root)
             .load(item.cover)
             .into(_binding.imageView)
+
+        _binding.dateView.text = item.formattedDate
+        _binding.nameView.text = item.title
     }
 }

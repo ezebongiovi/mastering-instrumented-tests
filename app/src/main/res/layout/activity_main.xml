@@ -130,6 +130,8 @@
                 </LinearLayout>
             </ViewFlipper>
 
+            <!-- TODO: MOST POPULAR ANIMES -->
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

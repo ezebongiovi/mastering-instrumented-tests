@@ -28,6 +28,8 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+private const val DATABASE_NAME = "AppDatabase"
+
 class AppInjector {
 
     val appModule = module {
@@ -73,9 +75,10 @@ class AppInjector {
         }
 
         single {
-            Room.inMemoryDatabaseBuilder(
+            Room.databaseBuilder(
                 androidApplication(),
-                AppDatabase::class.java
+                AppDatabase::class.java,
+                DATABASE_NAME
             ).build()
         }
 
