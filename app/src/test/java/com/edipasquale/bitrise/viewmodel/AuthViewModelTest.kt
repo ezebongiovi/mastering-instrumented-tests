@@ -4,10 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.edipasquale.bitrise.dto.User
 import com.edipasquale.bitrise.model.*
-import com.edipasquale.bitrise.repository.AuthRepository
+import com.edipasquale.bitrise.repository.auth.AuthRepository
 import com.edipasquale.bitrise.validator.FIELD_EMAIL
 import com.edipasquale.bitrise.validator.FIELD_PASSWORD
 import com.edipasquale.bitrise.validator.FieldValidator
+import com.edipasquale.bitrise.viewmodel.auth.AuthViewModel
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Assert.*

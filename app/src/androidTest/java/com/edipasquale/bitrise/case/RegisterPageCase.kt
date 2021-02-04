@@ -2,19 +2,24 @@ package com.edipasquale.bitrise.case
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
+import androidx.paging.PagedList
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.edipasquale.bitrise.KoinTestApp
+import com.edipasquale.bitrise.db.entity.RecentAnimeEntity
 import com.edipasquale.bitrise.dto.User
 import com.edipasquale.bitrise.model.MainModel
 import com.edipasquale.bitrise.page.MainPage
 import com.edipasquale.bitrise.page.RegisterPage
-import com.edipasquale.bitrise.repository.AuthRepository
+import com.edipasquale.bitrise.repository.auth.AuthRepository
+import com.edipasquale.bitrise.repository.main.MainRepository
 import com.edipasquale.bitrise.source.session.SessionManager
 import com.edipasquale.bitrise.validator.FieldValidator
 import com.edipasquale.bitrise.validator.SimpleFieldValidator
-import com.edipasquale.bitrise.viewmodel.AuthViewModel
+import com.edipasquale.bitrise.viewmodel.auth.AuthViewModel
+import com.edipasquale.bitrise.viewmodel.main.MainViewModel
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
@@ -23,6 +28,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -32,6 +38,7 @@ class RegisterPageCase {
     private lateinit var koinApp: KoinTestApp
     private val _mockedSessionManager = mockk<SessionManager>()
     private val _mockedRepository = mockk<AuthRepository>()
+    private val _mockedMainRepository = mockk<MainRepository>()
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -40,12 +47,15 @@ class RegisterPageCase {
     fun setUp() {
         koinApp = ApplicationProvider.getApplicationContext()
 
+        every { _mockedMainRepository.fetchLatestAdditions(any()) } returns MutableLiveData()
+
         koinApp.setUpModule(module {
             viewModel { AuthViewModel(get(), get()) }
 
             factory<FieldValidator> { SimpleFieldValidator() }
             factory { _mockedRepository }
             factory { _mockedSessionManager }
+            factory { MainViewModel(_mockedMainRepository, koinApp) }
         })
     }
 
@@ -120,6 +130,8 @@ class RegisterPageCase {
     @Test
     fun redirectedWhenAuthenticated() {
         mockSession(User(""))
+
+        every { _mockedMainRepository.fetchLatestAdditions(any()) } returns MutableLiveData()
 
         RegisterPage()
             .launch()

@@ -1,6 +1,7 @@
 package com.edipasquale.bitrise.flow
 
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -8,11 +9,13 @@ import com.edipasquale.bitrise.KoinTestApp
 import com.edipasquale.bitrise.dto.User
 import com.edipasquale.bitrise.model.MainModel
 import com.edipasquale.bitrise.page.RegisterPage
-import com.edipasquale.bitrise.repository.AuthRepository
+import com.edipasquale.bitrise.repository.auth.AuthRepository
+import com.edipasquale.bitrise.repository.main.MainRepository
 import com.edipasquale.bitrise.source.session.SessionManager
 import com.edipasquale.bitrise.validator.FieldValidator
 import com.edipasquale.bitrise.validator.SimpleFieldValidator
-import com.edipasquale.bitrise.viewmodel.AuthViewModel
+import com.edipasquale.bitrise.viewmodel.auth.AuthViewModel
+import com.edipasquale.bitrise.viewmodel.main.MainViewModel
 import io.mockk.*
 import org.junit.After
 import org.junit.Before
@@ -31,21 +34,22 @@ class RegisterPageFlow {
     private val _mockedFieldValidator = spyk(SimpleFieldValidator())
     private val _mockedRepository = mockk<AuthRepository>()
     private val _mockedSessionManager = mockk<SessionManager>()
+    private val _mockedMainRepository = mockk<MainRepository>()
 
     @Before
     fun setUp() {
         koinApp = ApplicationProvider.getApplicationContext()
 
+        every { _mockedMainRepository.fetchLatestAdditions(any()) } returns MutableLiveData()
+
         koinApp.setUpModule(module {
             // Build ViewModel with mocked dependencies
             viewModel { AuthViewModel(get(), get()) }
-
             // Mock Field Validator
             factory<FieldValidator> { _mockedFieldValidator }
-
             factory { _mockedRepository }
-
             single { _mockedSessionManager }
+            factory { MainViewModel(_mockedMainRepository, koinApp) }
         })
     }
 

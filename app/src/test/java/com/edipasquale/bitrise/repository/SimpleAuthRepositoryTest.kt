@@ -6,6 +6,7 @@ import com.edipasquale.bitrise.dto.EmailPasswordAuth
 import com.edipasquale.bitrise.dto.core.Either
 import com.edipasquale.bitrise.dto.User
 import com.edipasquale.bitrise.model.ERROR_EMAIL_FORMAT
+import com.edipasquale.bitrise.repository.auth.SimpleAuthRepository
 import com.edipasquale.bitrise.source.auth.AuthSource
 import io.mockk.every
 import io.mockk.mockk

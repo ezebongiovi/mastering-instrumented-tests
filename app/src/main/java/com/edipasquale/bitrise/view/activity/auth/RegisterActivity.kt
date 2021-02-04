@@ -10,7 +10,7 @@ import com.edipasquale.bitrise.model.*
 import com.edipasquale.bitrise.validator.LENGTH_MIN_PASSWORD
 import com.edipasquale.bitrise.view.activity.auth.core.AuthActivity
 import com.edipasquale.bitrise.view.activity.main.MainActivity
-import com.edipasquale.bitrise.viewmodel.AuthViewModel
+import com.edipasquale.bitrise.viewmodel.auth.AuthViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AuthActivity() {

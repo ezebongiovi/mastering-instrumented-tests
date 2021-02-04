@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">BitRise</string>
+    <string name="app_name">AnimetFlix</string>
     <string name="feedback_register_success">Registration successfull</string>
     <string name="feedback_error_email_format">The email format is invalid</string>
     <string name="feedback_error_password_format">The password must contain at least one upper letter, one lower latter, one special character and one number</string>
     <string name="feedback_error_password_length">The password must contain at least %1$d characters</string>
     <string name="feedback_error_password_match">Passwords don\'t match</string>
+    <string name="header_latest_additions">Latest additions</string>
 </resources>

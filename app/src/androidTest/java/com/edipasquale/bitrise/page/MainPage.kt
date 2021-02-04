@@ -29,7 +29,7 @@ class MainPage {
     class MainActions {
 
         fun assertAuthenticated() {
-            onView(withId(R.id.mainContainer)).check(matches(isDisplayed()))
+            onView(withId(R.id.toolbar)).check(matches(isDisplayed()))
         }
     }
 }
