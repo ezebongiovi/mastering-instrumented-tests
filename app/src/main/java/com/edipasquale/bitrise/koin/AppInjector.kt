@@ -1,11 +1,13 @@
 package com.edipasquale.bitrise.koin
 
 import android.app.Application
+import androidx.room.Room
 import com.edipasquale.bitrise.BuildConfig
+import com.edipasquale.bitrise.db.AppDatabase
 import com.edipasquale.bitrise.repository.auth.AuthRepository
 import com.edipasquale.bitrise.repository.auth.SimpleAuthRepository
+import com.edipasquale.bitrise.repository.main.APIMainRepository
 import com.edipasquale.bitrise.repository.main.MainRepository
-import com.edipasquale.bitrise.repository.main.NetworkMainRepository
 import com.edipasquale.bitrise.source.auth.AuthSource
 import com.edipasquale.bitrise.source.auth.FirebaseAuthSource
 import com.edipasquale.bitrise.source.main.MainLocalSource
@@ -59,15 +61,22 @@ class AppInjector {
         }
 
         factory {
-            NetworkMainRepository(get(), get())
+            APIMainRepository(get(), get())
         }
 
         factory<MainRepository> {
-            NetworkMainRepository(get(), get())
+            APIMainRepository(get(), get())
         }
 
         factory {
-            MainLocalSource(androidApplication())
+            MainLocalSource(get<AppDatabase>().dao())
+        }
+
+        single {
+            Room.inMemoryDatabaseBuilder(
+                androidApplication(),
+                AppDatabase::class.java
+            ).build()
         }
 
         factory<MainNetworkSource> {

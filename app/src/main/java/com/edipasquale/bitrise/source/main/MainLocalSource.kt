@@ -1,22 +1,18 @@
 package com.edipasquale.bitrise.source.main
 
-import android.app.Application
 import androidx.paging.toLiveData
-import androidx.room.Room
-import com.edipasquale.bitrise.db.AppDatabase
+import com.edipasquale.bitrise.db.AnimeDao
 import com.edipasquale.bitrise.db.entity.RecentAnimeEntity
 
 class MainLocalSource(
-    application: Application
+    private val dao: AnimeDao
 ) {
-    private val database = Room.databaseBuilder(application, AppDatabase::class.java, "main")
-        .build()
 
-    fun fetchLatestAdditions() = database.dao().getAllRecents().toLiveData(
+    fun fetchLatestAdditions() = dao.getAllRecents().toLiveData(
         pageSize = 10
     )
 
-    fun insert(list: List<RecentAnimeEntity>) {
-        database.dao().insertRecents(list)
+    fun insertRecents(list: List<RecentAnimeEntity>) {
+        dao.insertRecents(list)
     }
 }

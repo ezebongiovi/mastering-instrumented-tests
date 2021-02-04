@@ -21,7 +21,7 @@ import org.junit.Test
 import retrofit2.Call
 import retrofit2.Response
 
-class NetworkMainRepositoryTest {
+class APIMainRepositoryTest {
 
     private val _mockedNetworkSource = mockk<MainNetworkSource>()
     private val _mockedLocalSource = mockk<MainLocalSource>()
@@ -52,7 +52,7 @@ class NetworkMainRepositoryTest {
         every { mockedCall.execute() } returns Response.success(APIResponse(data = emptyList()))
 
         val repository =
-            NetworkMainRepository(_mockedNetworkSource, _mockedLocalSource, testCoroutineDispatcher)
+            APIMainRepository(_mockedNetworkSource, _mockedLocalSource, testCoroutineDispatcher)
 
         repository.fetchLatestAdditions(true).getOrAwaitValue()
 
@@ -70,7 +70,7 @@ class NetworkMainRepositoryTest {
         }
 
         val repository =
-            NetworkMainRepository(_mockedNetworkSource, _mockedLocalSource, testCoroutineDispatcher)
+            APIMainRepository(_mockedNetworkSource, _mockedLocalSource, testCoroutineDispatcher)
 
         repository.fetchLatestAdditions(false).getOrAwaitValue()
 

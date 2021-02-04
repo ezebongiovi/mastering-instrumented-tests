@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import java.io.IOException
 
-class NetworkMainRepository(
+class APIMainRepository(
     private val _source: MainNetworkSource,
     private val _localSource: MainLocalSource,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -26,7 +26,7 @@ class NetworkMainRepository(
                     } ?: emptyList()
 
                     if (list.isNotEmpty())
-                        _localSource.insert(list)
+                        _localSource.insertRecents(list)
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
