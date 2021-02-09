@@ -12,3 +12,7 @@ This is a project built for trying a new CI tool. On this project we're working 
 * <a href="https://github.com/arturdm/jacoco-android-gradle-plugin">Jacoco<a/> for coverage reports
 * <a href="https://mockk.io/">Mockk</a> for mocking objects during unit tests and instrumented tests
 * <a href="https://developer.android.com/jetpack/androidx/releases/lifecycle">Lifecycle aware components<a/> for building a lifecycle aware architecture + MVVM pattern + model driven UI
+
+
+## Screenshots
+<img width=250 height=550 src="https://drive.google.com/uc?export=download&id=1OSTT1cNMsVfwrN6oK1xhmjU6SI3aKwDS"/>
